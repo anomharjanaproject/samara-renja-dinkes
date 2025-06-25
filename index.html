@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>SAMARA Renja</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #e0f7fa, #ffe0f7);
+}
+h2, h3 {
+  text-align: center;
+  color: #333;
+}
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 15px rgba(0,0,0,.1);
+  margin: 20px 0;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 20px rgba(0,0,0,.15);
+}
+.item {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  align-items: center;
+}
+label {
+  flex: 1;
+  font-size: 1em;
+}
+select {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s;
+}
+select:focus {
+  border-color: #00796b;
+}
+#results {
+  text-align: center;
+  padding: 20px;
+  margin: 20px 0;
+  background: #ffffffdd;
+  border-radius: 10px;
+  animation: fadeIn 1s ease-in;
+  font-size: 1.1em;
+}
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+button {
+  padding: 12px 25px;
+  font-size: 1.1em;
+  border-radius: 5px;
+  border: none;
+  background-color: #00796b;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  display: block;
+  margin: 20px auto;
+}
+button:hover {
+  background-color: #004d40;
+  transform: scale(1.03);
+}
+</style>
+</head>
+<body>
+<h2>SAMARA Renja</h2>
+<form id="assessmentForm">
+<div class="card">
+<h3>Sistematika Penulisan</h3>
+<div class="item"><label>Bab 1: Judul, tanggal dokumen, tanda tangan, cap daerah</label> <select name="bab1s"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+<div class="item"><label>Bab 2: Daftar Isi, struktur bab, sistematika</label> <select name="bab2s"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+<div class="item"><label>Bab 3: Alur dokumen, kesesuaian dengan pedoman</label> <select name="bab3s"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+<div class="item"><label>Bab 4: Konsistensi penulisan dan pelabelan</label> <select name="bab4s"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+<div class="item"><label>Bab 5: Kesimpulan dan penutup yang lengkap</label> <select name="bab5s"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+</div>
+<div class="card">
+<h3>Kualitas Dokumen</h3>
+<div class="item"><label>Bab 1: Konsistensi narasi dan data kebutuhan daerah</label> <select name="bab1k"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+<div class="item"><label>Bab 2: Analisis kebutuhan anggaran dan catatan pelaksanaan</label> <select name="bab2k"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+<div class="item"><label>Bab 3: Kelengkapan rincian prioritas dan kebutuhan</label> <select name="bab3k"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+<div class="item"><label>Bab 4: Konsistensi dengan RPJMD dan RKPD</label> <select name="bab4k"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+<div class="item"><label>Bab 5: Kesimpulan dan keberlanjutan pelaksanaan</label> <select name="bab5k"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+</div>
+<button type="submit">Hitung Skor</button>
+</form>
+<div id="results"></div>
+<script>
+const itemNames = {
+  bab1s: "Bab 1 (Sistematika)",
+  bab2s: "Bab 2 (Sistematika)",
+  bab3s: "Bab 3 (Sistematika)",
+  bab4s: "Bab 4 (Sistematika)",
+  bab5s: "Bab 5 (Sistematika)",
+  bab1k: "Bab 1 (Kualitas)",
+  bab2k: "Bab 2 (Kualitas)",
+  bab3k: "Bab 3 (Kualitas)",
+  bab4k: "Bab 4 (Kualitas)",
+  bab5k: "Bab 5 (Kualitas)"
+};
+document.getElementById("assessmentForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const formData = new FormData(document.getElementById("assessmentForm"));
+  const scores = {};
+  for (let [name, value] of formData.entries()) {
+    scores[name] = Number(value);
+  }
+  const total = Object.values(scores).reduce((a, b) => a + b, 0);
+  const category = total <= 20 ? "Kurang" : total <= 30 ? "Cukup" : total <= 40 ? "Baik" : total <= 50 ? "Sangat Baik" : "Istimewa";
+  const lowItems = Object.keys(scores).filter(k => scores[k] <= 2).map(k => itemNames[k]);
+  const suggestions = lowItems.length > 0 ? `Perlu perbaikan di: ${lowItems.join(", ")}` : "Semua item sudah memadai.";
+  document.getElementById("results").innerHTML = `
+    <h3>Hasil</h3>
+    <p>Total Skor: ${total}</p>
+    <p>Kategori: ${category}</p>
+    <p>${suggestions}</p>
+  `;
+});
+</script>
+</body>
+</html>
